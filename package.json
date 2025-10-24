@@ -1,0 +1,21 @@
+{
+  "name": "playwright-automation",
+  "version": "1.0.0",
+  "description": "Playwright automation testing suite created by Hézio Fernandes",
+  "scripts": {
+    "test": "npx playwright test --reporter=html",
+    "test:headed": "npx playwright test --headed --reporter=html",
+    "test:local": "ENV=local npx playwright test --reporter=html",
+    "test:dev": "ENV=dev npx playwright test --reporter=html",
+    "test:prod": "ENV=prod npx playwright test --reporter=html",
+    "report": "npx playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.2",
+    "@types/node": "^24.9.1",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  }
+}

@@ -1,0 +1,18 @@
+# Node.js
+node_modules/
+dist/
+build/
+
+# Logs
+logs/
+*.log
+
+# Arquivos de ambiente
+.env
+
+# Relatórios do Playwright
+playwright-report/
+
+# Outros arquivos temporários
+.DS_Store
+Thumbs.db
