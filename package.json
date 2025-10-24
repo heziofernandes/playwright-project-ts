@@ -1,40 +1,21 @@
-name: Playwright Tests
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install Playwright browsers
-        run: npx playwright install
-
-      - name: Run Playwright tests
-        env:
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-        run: |
-          npx playwright test --report
-          PDF_PASTA=$(npx playwright test --headed --out-dir /tmp/output)
-          echo "O PDF foi gerado em: ${PDF_PASTA}"
-
-      - name: Upload PDF
-        uses: actions/upload-artifact@v4
-        with:
-          name: pdf
-          path: "${PDF_PASTA}/pdf.pdf"
+{
+  "name": "playwright-automation",
+  "version": "1.0.0",
+  "description": "Playwright automation testing suite created by Hézio Fernandes",
+  "scripts": {
+    "test": "npx playwright test --reporter=html",
+    "test:headed": "npx playwright test --headed --reporter=html",
+    "test:local": "ENV=local npx playwright test --reporter=html",
+    "test:dev": "ENV=dev npx playwright test --reporter=html",
+    "test:prod": "ENV=prod npx playwright test --reporter=html",
+    "report": "npx playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.2",
+    "@types/node": "^24.9.1",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  }
+}
