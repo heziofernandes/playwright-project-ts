@@ -29,9 +29,9 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
         run: |
-          npx playwright test --report
+          npx playwright test --reporter=html
           PDF_PASTA=$(npx playwright test --headed --out-dir /tmp/output)
-          echo "O PDF foi gerado em: ${PDF_PASTA}"
+          echo "The PDF was generated in: ${PDF_PASTA}"
 
       - name: Upload PDF
         uses: actions/upload-artifact@v4
