@@ -1,5 +1,9 @@
 import { chromium } from 'playwright';
-import path from 'path';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 (async () => {
   const browser = await chromium.launch();
@@ -8,8 +12,7 @@ import path from 'path';
   const relativePath = 'playwright-report/index.html';
 
   const absolutePath = path.resolve(__dirname, relativePath);
-
-  const fileUrl = 'file://' + absolutePath.replace(/\\/g, '/'); // substitui barras invertidas por barras normais no Windows
+  const fileUrl = 'file://' + absolutePath.replace(/\\/g, '/');
 
   await page.goto(fileUrl, { waitUntil: 'networkidle' });
   await page.pdf({ path: 'report.pdf', format: 'A4' });
