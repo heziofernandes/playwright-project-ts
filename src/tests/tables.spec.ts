@@ -6,7 +6,7 @@ test.describe('Tables Page Tests', () => {
     const tablesPage = new TablesPage(page, '#table1');
     await tablesPage.goto('/tables');
     await tablesPage.sortBy(4);
-    await expect(tablesPage.table.locator('tbody tr')).toHaveCount(4);
+    await expect(tablesPage.table.locator('tbody tr')).toHaveCount(4, { timeout: 5000 });
 
     const dueValue = await tablesPage.getDueOfRow(2);
     console.log('Row 2 Due Value:', dueValue);
@@ -17,7 +17,7 @@ test.describe('Tables Page Tests', () => {
     const tablesPage = new TablesPage(page, '#table2');
     await tablesPage.goto('/tables');
     await tablesPage.sortBy(4);
-    await expect(tablesPage.table.locator('tbody tr')).toHaveCount(4);
+    await expect(tablesPage.table.locator('tbody tr')).toHaveCount(4, { timeout: 5000 });
 
     const dueValue = await tablesPage.getDueOfRow(2);
     console.log('Row 2 Due Value:', dueValue);
