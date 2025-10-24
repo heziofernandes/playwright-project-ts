@@ -23,7 +23,9 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: npx playwright test
+      run: npx playwright test --reporter=html
+    - name: List files after tests
+      run: ls -la
     - name: Generate Playwright report
       run: npx playwright show-report
     - name: List files in report directory
