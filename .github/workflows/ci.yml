@@ -30,11 +30,20 @@ jobs:
           PASSWORD: ${{ secrets.PASSWORD }}
         run: |
           npx playwright test --reporter=html
-          PDF_PASTA=$(npx playwright test --headed --out-dir /tmp/output)
-          echo "The PDF was generated in: ${PDF_PASTA}"
 
-      - name: Upload PDF
+      - name: Generate PDF report
+        run: |
+          # Make sure you have a script to generate the PDF report
+          node generate-pdf.js
+
+      - name: Upload report artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: pdf
-          path: "${PDF_PASTA}/pdf.pdf"
+          name: playwright-report
+          path: playwright-report
+
+      - name: Upload PDF report
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf-report
+          path: report.pdf
