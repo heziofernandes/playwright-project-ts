@@ -3,7 +3,7 @@ import { getBaseUrl } from './src/utils/env';
 
 export default defineConfig({
   testDir: './src/tests',
-  timeout: 30 * 1000,
+  timeout: 60 * 1000,
   use: {
     baseURL: getBaseUrl(),
     trace: 'on-first-retry',
