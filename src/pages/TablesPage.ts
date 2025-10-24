@@ -1,7 +1,6 @@
 import { BasePage } from './BasePage';
 import { Locator, Page, expect } from '@playwright/test';
 
-
 export class TablesPage extends BasePage {
   readonly table: Locator;
 
@@ -9,6 +8,11 @@ export class TablesPage extends BasePage {
     super(page);
     this.table = page.locator(tableId);
   }
+
+  async goto(path: string) {
+    await this.page.goto(path);
+  }
+
   async sortBy(columnIndex: number) {
     const header = this.table.locator(`thead tr th:nth-child(${columnIndex})`);
     await header.click();
@@ -20,7 +24,18 @@ export class TablesPage extends BasePage {
   }
 
   async expectDueOfRow(rowIndex: number, expectedValue: string) {
-    const value = await this.getDueOfRow(rowIndex);
-    expect(value).toBe(expectedValue);
+    const rowSelector = `tbody tr:nth-child(${rowIndex})`;
+    const cellSelector = `${rowSelector} td:nth-child(4)`;
+
+    await this.page.waitForFunction(
+      (sel) => {
+        const cell = document.querySelector(sel);
+        return cell && cell.textContent && cell.textContent.trim().startsWith('$');
+      },
+      cellSelector
+    );
+
+    const value = await this.table.locator(`tbody tr:nth-child(${rowIndex}) td:nth-child(4)`).textContent();
+    expect(value?.trim()).toBe(expectedValue);
   }
 }

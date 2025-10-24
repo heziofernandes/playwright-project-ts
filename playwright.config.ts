@@ -11,7 +11,7 @@ export default defineConfig({
     video: 'retain-on-failure',
     headless: true, // runs with browser UI visible(false)
     launchOptions: {
-      slowMo: 0, 
+      slowMo: 100, 
     },
   },
   projects: [
