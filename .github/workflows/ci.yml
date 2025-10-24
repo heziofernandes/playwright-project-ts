@@ -30,43 +30,43 @@ jobs:
           PASSWORD: ${{ secrets.PASSWORD }}
         run: npx playwright test --reporter=list
 
-      # Aqui você adiciona as etapas para gerar o relatório PDF
-      - name: Instalar Python e reportlab
+      # Here you add steps to generate the PDF report
+      - name: Set up Python and reportlab
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: Instalar dependências Python
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install reportlab
 
-      - name: Criar script de geração de relatório
+      - name: Create report generation script
         run: |
-          cat <<EOF > gerar_relatorio.py
+          cat <<EOF > generate_report.py
           from reportlab.lib.pagesizes import A4
           from reportlab.pdfgen import canvas
 
-          def criar_relatorio(caminho):
-              c = canvas.Canvas(caminho, pagesize=A4)
+          def create_report(path):
+              c = canvas.Canvas(path, pagesize=A4)
               c.setFont("Helvetica-Bold", 20)
-              c.drawString(100, 800, "Relatório de Testes")
+              c.drawString(100, 800, "Test Report")
               c.setFont("Helvetica", 12)
-              c.drawString(100, 780, "Testes executados com sucesso.")
-              c.drawString(100, 760, "Data: 2024-04-27")
+              c.drawString(100, 780, "Tests executed successfully.")
+              c.drawString(100, 760, "Date: 2024-04-27")
               c.showPage()
               c.save()
 
           if __name__ == "__main__":
-              criar_relatorio("relatorio_testes.pdf")
+              create_report("test_report.pdf")
           EOF
 
-      - name: Executar geração do relatório
+      - name: Run report generation
         run: |
-          python gerar_relatorio.py
+          python generate_report.py
 
-      - name: Upload do relatório como artefato
-        uses: actions/upload-artifact@v3
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: Relatório de Testes
-          path: relatorio_testes.pdf
+          name: Test Report
+          path: test_report.pdf
