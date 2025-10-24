@@ -1,7 +1,7 @@
 {
   "name": "playwright-automation",
   "version": "1.0.0",
-  "description": "Playwright automation testing suite created by Hézio Fernandes",
+  "description": "Playwright automation testing suite created by Hézio D. Fernandes",
   "scripts": {
     "test": "npx playwright test --reporter=html",
     "test:headed": "npx playwright test --headed --reporter=html",
